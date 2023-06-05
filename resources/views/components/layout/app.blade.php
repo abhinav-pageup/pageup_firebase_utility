@@ -8,7 +8,7 @@
     <title>{{ $title }} | PageUp</title>
     <link rel="shortcut icon" href="{{ URL::asset('favicon.png') }}" type="image/x-icon">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script>
         // On page load or when changing themes, best to add inline in `head` to avoid FOUC
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia(
@@ -19,6 +19,7 @@
         }
     </script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    @livewireStyles
 </head>
 
 <body>
@@ -39,7 +40,7 @@
                         </svg>
                     </button>
                     <a href="{{ url('/') }}" class="flex ml-2 md:mr-24">
-                        <img src="{{ URL::asset('storage/images/pageup.png') }}" class="h-10 mr-3" alt="PageUp" />
+                        <img src="{{ asset('assets/pageup.png') }}" class="h-10 mr-3" alt="PageUp" />
                         <span
                             class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">PageUp</span>
                     </a>
@@ -150,8 +151,9 @@
     </div>
 
     @if ($errors->any())
-        <x-alert isSuccess="{{ $errors->first('isSuccess') }}">{{ $errors->first('message') }}</x-alert>
+        <x-alert isSuccess="{{ $errors->first('isSuccess') }}">{{ $errors->first('message') ?? $errors->first() }}</x-alert>
     @endif
+    @livewireScripts    
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
 <script>

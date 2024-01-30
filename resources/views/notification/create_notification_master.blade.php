@@ -6,7 +6,7 @@
             @csrf
             <div>
                 <x-form.label for="project" value="Project" />
-                <x-form.select name="serverKey" :value="$projectMaster" required />
+                <x-form.select name="projectMasterId" :value="$projectMaster" required />
             </div>
             <div>
                 <x-form.label for="title" value="Title" />

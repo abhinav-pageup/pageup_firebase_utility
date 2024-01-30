@@ -111,7 +111,8 @@ final class ProjectMasterTable extends PowerGridComponent
     {
         return [
             Column::make('Name', 'name'),
-            Column::make('Name', 'name'),
+            Column::make('Icon', 'icon'),
+            Column::make('Firebase URL', 'firebase_url'),
             Column::make('Created at', 'created_at_formatted', 'created_at')
                 ->sortable(),
 
@@ -144,23 +145,23 @@ final class ProjectMasterTable extends PowerGridComponent
      * @return array<int, Button>
      */
 
-    public function actions(): array
-    {
-       return [
-           Button::make('edit', 'Edit')
-               ->class('bg-indigo-500 cursor-pointer text-white px-3 py-2.5 m-1 rounded text-sm')
-               ->route('project-master.edit', function(ProjectMaster $model) {
-                    return $model->id;
-               }),
+    // public function actions(): array
+    // {
+    //    return [
+    //        Button::make('edit', 'Edit')
+    //            ->class('bg-indigo-500 cursor-pointer text-white px-3 py-2.5 m-1 rounded text-sm')
+    //            ->route('project-master.edit', function(ProjectMaster $model) {
+    //                 return $model->id;
+    //            }),
 
-           Button::make('destroy', 'Delete')
-               ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
-               ->route('project-master.destroy', function(ProjectMaster $model) {
-                    return $model->id;
-               })
-               ->method('delete')
-        ];
-    }
+    //        Button::make('destroy', 'Delete')
+    //            ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
+    //            ->route('project-master.destroy', function(ProjectMaster $model) {
+    //                 return $model->id;
+    //            })
+    //            ->method('delete')
+    //     ];
+    // }
 
     /*
     |--------------------------------------------------------------------------

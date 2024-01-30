@@ -151,11 +151,15 @@
     </div>
 
     @if ($errors->any())
-        <x-alert isSuccess="{{ $errors->first('isSuccess') }}">{{ $errors->first('message') ?? $errors->first() }}</x-alert>
+        <x-alert isSuccess="{{ $errors->first('isSuccess') }}">{{ $errors->first('message') ?? $errors->first() }}
+        </x-alert>
     @endif
-    @livewireScripts    
+    @livewireScripts
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-messaging.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-analytics.js"></script>
 <script>
     $('#remove-alert').click(function() {
         $(this).parent().parent().remove();
@@ -200,6 +204,62 @@
             }
         }
 
+    });
+    const firebaseConfig = {
+        apiKey: "AIzaSyDXcSp0YADUykDxfN9sUlA5p0dzroNtFgY",
+        authDomain: "php-firebase-c5742.firebaseapp.com",
+        projectId: "php-firebase-c5742",
+        storageBucket: "php-firebase-c5742.appspot.com",
+        messagingSenderId: "1013350745500",
+        appId: "1:1013350745500:web:a880fe3ca7478d0d367459",
+        measurementId: "G-E7YDHTJ7FG"
+    };
+
+    firebase.initializeApp(firebaseConfig)
+    const messaging = firebase.messaging();
+
+    // function initFirebaseMessagingRegistration() {
+    //     messaging.requestPermission().then(function() {
+    //         return messaging.getToken()
+    //     }).then(function(token) {
+    //         console.log(token);
+    //         // $.ajax({
+    //         //     url: './backend/SaveFcmToken.php',
+    //         //     type: 'POST',
+    //         //     data: {
+    //         //         fcm_token: token,
+    //         //         project_master_id: 1
+    //         //     },
+    //         //     success: function(data) {
+    //         //         localStorage.setItem('isFcmSaved', 1);
+    //         //     },
+    //         //     error: function(error) {
+    //         //         localStorage.setItem('isFcmSaved', 0);
+    //         //     }
+    //         // });
+    //         console.log(token);
+
+    //     }).catch(function(err) {
+    //         console.log(`Token Error :: ${err}`);
+    //     });
+    // }
+
+    // if (localStorage.getItem('isFcmSaved') == undefined || localStorage.getItem('isFcmSaved') != 1) {
+    //     initFirebaseMessagingRegistration();
+    // }
+
+    messaging.onMessage(function (data) {
+        console.log(data.data);
+        let notificationOptions = {
+            body: data.data.body,
+            icon: data.data.icon
+        }
+        let notification = new Notification(data.data.title, notificationOptions);
+
+        notification.onclick = (event) => {
+            event.preventDefault();
+            window.open(data.data.click_action);
+        };
     });
 </script>
 
